@@ -1,0 +1,36 @@
+# starship-github-identity を使うときの最小 starship.toml サンプル
+#
+# 配置先: ~/.config/starship.toml
+# 詳しい説明: https://321dev.org/ja/blog/tips/starship-github-account
+
+format = """
+$username$directory${custom.github_remote}$git_branch$git_status$cmd_duration
+$character"""
+
+[username]
+show_always = true
+format = '[$user](bold green) '
+
+[custom.github_remote]
+command = '"$HOME/.config/starship-github-identity.sh"'
+when = '"$HOME/.config/starship-github-identity.sh" --check'
+style = "bold purple"
+format = '[$output]($style)'
+
+[git_branch]
+symbol = " "
+format = '[$symbol$branch]($style) '
+
+[git_status]
+format = '([$all_status$ahead_behind]($style) )'
+
+[cmd_duration]
+min_time = 1_000
+format = '[took $duration](yellow) '
+
+[directory]
+truncation_length = 3
+
+[character]
+success_symbol = '[❯](green)'
+error_symbol = '[❯](red)'
